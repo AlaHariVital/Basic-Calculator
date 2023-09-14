@@ -3,13 +3,19 @@ const inputFieldEl = document.getElementById('result');
 
 for (let i = 0; i < buttonsEl.length; i++) {
   buttonsEl[i].addEventListener('click', () => {
-    const buttonValue = buttonsEl[i].textContent;
-    if (buttonValue === 'C') {
-      clearResult();
-    } else if (buttonValue === '=') {
-      calculateResult();
-    } else {
-      appendValue(buttonValue);
+    const buttonValue = buttonsEl[i].innerText;
+    switch (buttonValue) {
+      case 'C':
+        clearResult();
+        break;
+      case '=':
+        calculateResult();
+        break;
+      case '⌫':
+        clearOneValue();
+        break;
+      default:
+        appendValue(buttonValue);
     }
   });
 }
@@ -21,4 +27,8 @@ function calculateResult() {
 }
 function appendValue(buttonValue) {
   inputFieldEl.value += buttonValue;
+}
+function clearOneValue() {
+  const currentValue = inputFieldEl.value;
+  inputFieldEl.value = currentValue.slice(0, -1);
 }
